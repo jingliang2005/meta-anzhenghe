@@ -6,6 +6,9 @@ inherit core-image
 IMAGE_LINGUAS = "zh-cn"
 
 inherit populate_sdk_qt5
+ 
+IMAGE_FEATURES += "dev-pkgs tools-sdk \
+	tools-debug eclipse-debug tools-profile tools-testapps debug-tweaks ssh-server-openssh"
 
 QT_DEV_TOOLS = " \
     qtbase-dev \
@@ -38,6 +41,7 @@ TSLIB = " \
 TEST_APPS += " \
     qcolorcheck-tools \
     tspress-tools \ 
+    sixaxis \
 "
 
 IMAGE_INSTALL += " \
