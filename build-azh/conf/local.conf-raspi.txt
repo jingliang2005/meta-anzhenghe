@@ -1,4 +1,4 @@
-#
+# RASPBERRY PI CONF
 # This file is your local configuration file and is where all local user settings
 # are placed. The comments in this file give some guide to the options a new user
 # to the system might want to change but pretty much any configuration option can
@@ -285,3 +285,189 @@ CONF_VERSION = "1"
 # anzhenghe
 # 移除旧的图像
 RM_OLD_IMAGE = "1"
+
+# raspberry pi meta-raspberrypi copy
+# https://meta-raspberrypi.readthedocs.io/en/latest/extra-build-config.html
+# 其余的请检查：http : //www.yoctoproject.org/docs/latest/ref-manual/ref-manual.html
+
+# 压缩部署文件 ext3 / ext4
+IMAGE_FSTYPES = "tar.bz2 ext3.xz"
+SDIMG_ROOTFS_TYPE = "ext3.xz"
+
+# GPU内存 （以兆字节为单位 
+GPU_MEM_256
+GPU_MEM_512
+GPU_MEM_1024
+
+# VC4 它不支持64位arch。
+# 如果vc4在64位Raspberry Pi计算机上禁用，则可能会导致构建破坏
+# DISABLE_VC4GRAPHICS = "1"
+
+# 添加购买的许可证
+# KEY_DECODE_MPG2 = "12345678"
+# KEY_DECODE_WVC1 = "12345678"
+# KEY_DECODE_WVC1 = "0x12345678,0xabcdabcd,0x87654321"
+
+# 默认情况下，GPU在视频输出周围添加黑色边框，以补偿截断部分图像的电视。
+# 要禁用此设置，请在local.conf中设置此变量：
+DISABLE_OVERSCAN = "1"
+
+# 禁用启动画面
+# 默认情况下，加载GPU固件后会显示彩虹启动屏幕。
+DISABLE_SPLASH = "1"
+
+# 开机延迟 如果您的SD卡需要一段时间才能准备好
+# BOOT_DELAY = "0"
+# BOOT_DELAY_MS = "0"
+
+# 设置超频选项 config.txt
+# Raspberry Pi 2中Turbo模式的官方设置示例：
+# ARM_FREQ = "1000"
+# CORE_FREQ = "500"
+# SDRAM_FREQ = "500"
+# OVER_VOLTAGE = "6"
+
+# HDMI和复合视频选项
+# 检查config.txt以获取有关选项和模式的详细说明。下列变量支持的local.conf： ，
+# HDMI_FORCE_HOTPLUG，HDMI_DRIVE，HDMI_GROUP，HDMI_MODE， ，
+# CONFIG_HDMI_BOOST 和。SDTV_MODESDTV_ASPECTDISPLAY_ROTATE
+# 在CEA模式下将HDMI输出强制为720p的示例：
+HDMI_GROUP = "1"
+# 800*600 = 9 
+HDMI_MODE = "4"
+
+# V4L2驱动程序对摄像机的支持
+# 设置此变量以启用对摄像机的支持（需要Linux 3.12.4+）：
+# VIDEO_CAMERA = "1"
+
+# 设置此变量以启用对dispmanx脱机合成的支持：
+# 这将使固件回退到Dispmanx元素的脱机合成。通常，
+# 合成是在扫描期间在线完成的，但是不能处理太多元素。
+# 启用离线功能后，将分配一个屏幕外缓冲区以进行合成。
+# 当场景复杂度（元素的数量和大小）很高时，合成将离线发生在缓冲区中。
+# 强烈推荐用于Wayland / Weston。
+DISPMANX_OFFLINE = "1"
+
+# 要将控制台上的kdbg（kgdboc）参数添加到内核命令行，请在local.conf中设置此变量：
+ENABLE_KGDB = "1"
+
+# 禁用RPI引导徽标
+DISABLE_RPI_BOOT_LOGO = "1"
+
+# 引导至U-Boot
+# 这将自动选择适当的映像格式以用于u-boot。
+# 为了进一步定制，可以覆盖KERNEL_IMAGETYPE和KERNEL_BOOTCMD变量，
+# 以选择要使用的确切内核映像类型（例如zImage）和u-boot命令（例如bootz）
+# RPI_USE_U_BOOT = "1"
+
+# 带有Initramfs的图像
+# 设置这3个内核变量（在kernel_configure_variable LOCALVERSION“”””行之后，
+# 在linux-raspberrypi.inc中内核的do_configure_prepend中）
+# kernel_configure_variable BLK_DEV_INITRD是
+# kernel_configure_variable INITRAMFS_SOURCE“”
+# kernel_configure_variable RD_GZIP是
+
+# 设置yocto变量（例如在local.conf中）
+# INITRAMFS_IMAGE = "<name for your initramfs image>"
+# INITRAMFS_IMAGE_BUNDLE = "1"
+# BOOT_SPACE = "1073741"
+# INITRAMFS_MAXSIZE = "315400"
+# IMAGE_FSTYPES_pn-${INITRAMFS_IMAGE} = "${INITRAMFS_FSTYPES}"
+
+# 在SD卡映像启动分区中包含其他文件
+# SD卡映像类支持在启动分区中添加额外的文件，
+# 该文件是从映像根分区或从构建映像部署目录复制的。
+# 要将根分区中存在的文件复制到启动中，
+# FATPAYLOAD是一个简单的以空格分隔的要复制文件列表：
+# FATPAYLOAD = "/boot/example1 /boot/example2"
+
+# 要从映像部署目录中复制文件，这些文件应在DEPLOYPAYLOAD中以空格分隔的条目列表列出。
+# 每个条目都列出了要复制的文件，可以通过在冒号分隔符后提供该文件名来指定可选的目标文件名。
+# DEPLOYPAYLOAD = "example1-${MACHINE}:example1 example2"
+
+# 部署将包含在部署目录中的文件将由映像构建任务必须依赖的任务生成，
+# 以确保文件在需要时可用，因此必须将这些组件部署任务添加到：RPI_SDIMG_EXTRA_DEPENDS。
+# RPI_SDIMG_EXTRA_DEPENDS_append = " example:do_deploy"
+
+# 使用设备树内核时，请设置此变量以启用SPI总线：
+# ENABLE_SPI_BUS = "1"
+
+# 使用设备树内核时，请设置此变量以启用I2C：
+# ENABLE_I2C = "1"
+# 此外，要自动加载I2C内核模块集，请执行以下操作：
+# KERNEL_MODULE_AUTOLOAD_rpi += "i2c-dev i2c-bcm2708"
+
+# 启用PiTFT支持
+# 通过在local.conf中添加以下内容，可以启用对使用PiTFT屏幕的基本支持：
+# MACHINE_FEATURES += "pitft"
+# 这将启用SPI总线和i2c设备树，还将为PiTFT上的控制台和x服务器设置帧缓冲区。
+# 注意：要使此工作正常进行，还必须构建，
+# 添加和指定PiTFT模型的覆盖图（dtoverlay = 在config.txt中）。
+# 以下是meta-raspberrypi中当前支持的PiTFT模型的列表，
+# 应将模型名作为MACHINE_FEATURES添加到local.conf中，如下所示：
+# MACHINE_FEATURES += "pitft <modelname>"
+#当前支持的型号列表：
+#pitft22
+#pitft28r
+#pitft28c
+#pitft35r
+
+# 如果您想使用Waveshare“ C” 1024×600、7英寸电容触摸屏LCD，
+# HDMI接口（http://www.waveshare.com/7inch-HDMI-LCD-C.htm）2.1版，
+# 请进行设置您local.conf中的以下内容：
+# WAVESHARE_1024X600_C_2_1 = "1"
+
+# 启用UART
+# RaspberryPi 0、1、2和CM默认情况下会启用UART控制台。
+# RaspberryPi 0 WiFi和3默认情况下不启用UART，
+# 因为这需要固定的核心频率，并且enable_uart会将其设置为最小。
+# 某些未在ARM上执行的操作-60fps h264解码，高质量反交错-可能会受到影响，
+# 并且我们不想对不想使用串行端口的用户执行此操作。
+# 希望在RaspberryPi 0 Wifi或3上支持串行控制台的用户必须在local.conf中进行显式设置：
+# ENABLE_UART = "1"
+
+# 标准USB驱动程序仅支持主机模式操作。
+# 想要使用g_ether之类的小工具模块的用户应在local.conf中设置以下内容：
+# ENABLE_DWC2_PERIPHERAL = "1"
+
+# 使用设备树内核时，请设置此变量以启用802.15.4帽子：
+# ENABLE_AT86RF = "1"
+
+# 为了将CAN与基于MCP2515的模块一起使用，请设置以下变量：
+# ENABLE_SPI_BUS = "1"
+# ENABLE_CAN = "1"
+# 如果是双CAN模块（例如PiCAN2 Duo），请设置以下变量：
+# ENABLE_SPI_BUS = "1"
+# ENABLE_DUAL_CAN = "1"
+# 某些模块可能需要设置特定板上使用的晶体振荡器的频率。
+# 频率通常在晶体包装上标出。默认情况下，它设置为16 MHz。
+# 要将其更改为8 MHz，还必须设置以下变量：
+# CAN_OSCILLATOR="8000000"
+# 经过测试的模块：
+# PiCAN2（16 MHz晶振）：
+# http ://skpang.co.uk/catalog/pican2-canbus-board-for-raspberry-pi-23-p-1475.html
+# WaveShare RS485 CAN HAT（8 MHz或12 MHz晶振）：
+# https ://www.waveshare.com/rs485-can-hat.htm
+# PiCAN2 Duo（16 MHz晶体）：
+# http ://skpang.co.uk/catalog/pican2-duo-canbus-board-for-raspberry-pi-23-p-1480.html
+
+# 想要启用红外支持（例如使用LIRC（Linux红外远程控制））的用户，
+# 必须在local.conf中进行显式设置：
+# ENABLE_IR = "1"
+# 这会将设备树覆盖gpio-ir和gpio-ir-tx添加到config.txt。
+# 映像中还将包含适当的内核模块。
+# 默认情况下，gpio-ir的GPIO引脚设置为18，gpio-ir-tx的引脚设置为17。
+# 可以通过修改变量GPIO_IR和轻松更改两个引脚GPIO_IR_TX。
+
+# 手动添加到config.txt
+# 如果上面没有针对您需要的配置的特定选项，
+# 则该RPI_EXTRA_CONFIG变量可用于将其他行手动添加到config.txt文件。
+# 要添加多行，您必须包含\n分隔符。
+# 如果您要添加的行中需要双引号，则可以在整个字符串周围使用单引号。
+# 例如，要添加包含双引号和配置选项的注释：
+# RPI_EXTRA_CONFIG = ' \n \
+#    # Raspberry Pi 7\" display/touch screen \n \
+#    lcd_rotate=2 \n \
+
+
+
