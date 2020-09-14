@@ -23,7 +23,7 @@ BRANCH="dunfell"
 cloneOrPull  git://git.yoctoproject.org/meta-freescale meta-freescale $BRANCH
 cloneOrPull  git://github.com/beagleboard/meta-beagleboard meta-beagleboard master
 cloneOrPull  https://github.com/meta-qt5/meta-qt5.git  meta-qt5 $BRANCH
-cloneOrPull  git://git.yoctoproject.org/meta-raspberrypi meta-raspberry $BRANCH
+cloneOrPull  git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi $BRANCH
 cloneOrPull  https://github.com/kraj/meta-altera.git meta-altera master
 cloneOrPull  git://git.yoctoproject.org/meta-ti meta-ti $BRANCH
 cloneOrPull  git://git.yoctoproject.org/meta-arm meta-arm $BRANCH
