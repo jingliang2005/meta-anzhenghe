@@ -41,8 +41,7 @@ TSLIB = " \
 TEST_APPS += " \
     qcolorcheck-tools \
     tspress-tools \ 
-    sixaxis \
-"
+    "
 
 IMAGE_INSTALL += " \
     ${FONTS} \
